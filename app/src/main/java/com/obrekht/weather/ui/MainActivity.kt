@@ -49,6 +49,10 @@ class MainActivity : AppCompatActivity() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         askLocationPermission()
+
+        viewModel.locationState.observe(this) {
+            if (it) updateLocation()
+        }
     }
 
     private fun askLocationPermission() {
@@ -81,9 +85,11 @@ class MainActivity : AppCompatActivity() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            fusedLocationClient.getCurrentLocation(PRIORITY_BALANCED_POWER_ACCURACY, null).addOnSuccessListener {
-                viewModel.updateWeather(it.latitude, it.longitude)
-            }
+            fusedLocationClient.getCurrentLocation(PRIORITY_BALANCED_POWER_ACCURACY, null)
+                .addOnSuccessListener {
+                    viewModel.locationUpdated()
+                    viewModel.updateWeather(it.latitude, it.longitude)
+                }
         } else {
             askLocationPermission()
         }

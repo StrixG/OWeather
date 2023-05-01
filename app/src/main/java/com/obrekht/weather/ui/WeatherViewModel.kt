@@ -15,6 +15,8 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
     val uiState: LiveData<WeatherOverviewUiState>
         get() = _uiState
 
+    val locationState = MutableLiveData<Boolean>(false)
+
     private val repository = WeatherRepositoryImpl()
 
     fun updateWeather(latitude: Double, longitude: Double) {
@@ -35,5 +37,13 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
                 )
             }
         }
+    }
+
+    fun requestLocationUpdate() {
+        locationState.value = true
+    }
+
+    fun locationUpdated() {
+        locationState.value = false
     }
 }

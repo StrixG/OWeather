@@ -14,16 +14,19 @@ class WeatherOverviewFragment : Fragment(R.layout.fragment_weather_overview) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.requestLocationUpdate()
+        }
+
         viewModel.uiState.observe(viewLifecycleOwner) {
             with(binding) {
+                swipeRefresh.isRefreshing = false
+
                 locationName.text = it.locationName
                 currentTemperature.text = it.temperature.toString()
                 feelsLikeTemperature.text = getString(R.string.feels_like, it.feelsLikeTemperature)
                 weatherDescription.text = it.weatherName
-
-                swipeRefresh.setOnRefreshListener {
-                    // TODO: Update location and weather info
-                }
             }
         }
     }
