@@ -43,4 +43,9 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="unit_celsius">°C</string>
+    <string name="google_play_unavailable">Google Play Service are unavailable on this device</string>
+    <string name="empty_info">-</string>
+    <string name="feels_like">Feels like %1$d°</string>
+    <string name="degree_symbol">°</string>
 </resources>
